@@ -171,6 +171,22 @@ static void get_pa_sink_inputs_cb(UNUSED pa_context* c, const pa_sink_input_info
         lua_pushliteral(L, "name");
         lua_pushstring(L, name);
         lua_rawset(L, -3);
+        if (pa_proplist_contains(i->proplist, "application.process.id"))
+        {
+            const char *pid;
+            pid = pa_proplist_gets(i->proplist, "application.process.id");
+            lua_pushliteral(L, "pid");
+            lua_pushnumber(L, atoi(pid));
+            lua_rawset(L, -3);
+        }
+        if (pa_proplist_contains(i->proplist, "application.process.binary"))
+        {
+            const char *binary;
+            binary = pa_proplist_gets(i->proplist, "application.process.binary");
+            lua_pushliteral(L, "binary");
+            lua_pushstring(L, binary);
+            lua_rawset(L, -3);
+        }
 
         lua_rawset(L, -3);
     }
