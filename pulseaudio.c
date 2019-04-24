@@ -79,7 +79,7 @@ static int luaP_set_sink_input_volume(lua_State* L)
     return luaP_set_volume(L, &pa_context_set_sink_input_mute, &pa_context_set_sink_input_volume);
 }
 
-static const struct luaL_reg pulseaudio_reg[] =
+static const struct luaL_Reg pulseaudio_reg[] =
 {
     {"set_sink_volume",       luaP_set_sink_volume      },
     {"set_sink_input_volume", luaP_set_sink_input_volume},
@@ -92,7 +92,7 @@ static const struct luaL_reg pulseaudio_reg[] =
 
 int luaopen_pulseaudio(lua_State* L)
 {
-    luaL_openlib(L, "pulseaudio", pulseaudio_reg, 0);
+    luaL_newlib(L, pulseaudio_reg);
     return 1;
 }
 
